@@ -15,13 +15,18 @@ import time
 import re
 import urllib.request
 
+# This information needs to be changed for each school
+sharpURL = "http://union.ss8.sharpschool.com/"
+oldURL = "http://www.westirondequoit.org/"
 
-sharpURL = "http://unionls.ss8.sharpschool.com/"
-oldURL = "http://www.edline.net/pages/foster_park_elementary"
+# Excel sheet information
 filePath = "C:\\Users\\hannan.wei\\Downloads\\"
-username = "han.nan.wei"    #"temp"
-fileName = "Aug15Copy.xlsx"  #"temp"
-sheetName = "Foster Park Elementary"
+username = "han.nan.wei"    
+fileName = "WestIrondequoitCentralSchoolDistrict.xlsx"
+sheetName = "District"
+#----------------------------------------------------
+
+
 homeID = ""
 workbook = Workbook()
 stackURL = ["","","",""]
@@ -247,7 +252,7 @@ def CreateLinkPage(driver, stackURL, cell):
     stackURL[level] = driver.current_url
 
 
-def ParseContent(cell):
+def ParseContent(cell, content):
     listOfImages = content.findAll('img')
     
     for img in listOfImages:
@@ -269,7 +274,7 @@ def GrabContent(driver, cell):
     html = urllib.request.urlopen(req).read()
     soup = BeautifulSoup(html, "html.parser")
     content = soup.find("div", {"id": "edlThemeMainsectionZoneFrame"})
-    content = ParseContent(cell)
+    content = ParseContent(cell, content)
     return content
 
 
